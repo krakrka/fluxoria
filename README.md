@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fluxora
 
-## Getting Started
+Plateforme B2B pour automatiser les flux administratifs d'une PME : dépôt de documents, extraction simulée avec scores de confiance, validation humaine, factures, commandes, rapprochement, règles et journal d'audit.
 
-First, run the development server:
+B2B platform for French SMEs. Upload a document, review extracted fields with confidence scores, validate, match an invoice to a purchase order, and see the action in the audit log. No external AI key is required.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Démarrage / Setup
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Start PostgreSQL: `docker compose up -d`
+2. Copy `.env.example` to `.env`
+3. `npm install`
+4. `npx prisma migrate dev`
+5. `npm run db:seed`
+6. `npm run dev`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Comptes de démonstration / Demo accounts
 
-## Learn More
+Mot de passe / password: `Fluxora-Demo-2026`
 
-To learn more about Next.js, take a look at the following resources:
+- owner@atlas-industrie.test — OWNER
+- admin@atlas-industrie.test — ADMIN
+- member@atlas-industrie.test — MEMBER
+- accountant@atlas-industrie.test — ACCOUNTANT
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Organisation isolée : owner@brume-conseil.test
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`MOCK_AI_MODE=true` simule l'extraction. Les valeurs ne sont pas lues dans le fichier et ne sont jamais présentées comme certaines.
 
-## Deploy on Vercel
+Mock mode does not read the file. Extracted values stay unvalidated until a person confirms them.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Aucun email n'est envoyé. `EMAIL_DELIVERY_ENABLED` reste à false.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Rôles / Roles
+
+- OWNER : organisation, facturation, suppression, membres, y compris admin
+- ADMIN : membres (hors propriétaire), documents, règles, paramètres
+- MEMBER : dépôt, lecture, correction et validation
+- ACCOUNTANT : factures, commandes, rapprochement, relances, journal
+
+## Vérifications / Checks
+
+- `npm test`
+- `npx tsc --noEmit`
+- `npm run lint`
+- `npm run test:e2e` (Playwright, base de données démarrée)
+
+Le cadrage RGPD (export, suppression, conservation, consentement, journal) prépare le produit. Il ne constitue pas une conformité juridique certifiée.
