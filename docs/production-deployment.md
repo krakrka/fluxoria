@@ -6,6 +6,8 @@ Les migrations versionnées sont la seule voie de schéma. Ne pas utiliser `pris
 
 Créer une base PostgreSQL vide et un utilisateur dédié. Noter `DATABASE_URL` dans le secret manager, pas dans le dépôt.
 
+Sur Vercel avec Neon, le runtime et les migrations n'utilisent pas la même connexion. `DATABASE_URL` est l'hôte poolé, avec `sslmode=require` et `pgbouncer=true`. `DIRECT_URL` est l'hôte direct, sans pooler. Prisma 6 lit ces deux noms dans `prisma/schema.prisma` : `url` pour le client, `directUrl` pour Migrate. `npm run db:deploy` lance `prisma migrate deploy` après avoir refusé une `DIRECT_URL` absente ou poolée. Cette commande ne fait pas partie du build Vercel : un build de prévisualisation ne doit pas migrer la base. La connexion à Neon n'est pas prouvée tant qu'un `migrate deploy` autorisé n'a pas été observé.
+
 ## Secrets
 
 Les secrets de production restent dans le secret manager de l'hébergeur. Ils ne sont pas committés. Une rotation remplace la valeur, redémarre le processus, puis retire l'ancienne valeur. Au minimum : `AUTH_SECRET`, `DATABASE_URL`, les clés S3 applicatives, les clés du probe, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `INBOUND_WEBHOOK_SECRET` et les jetons d'email. Après une fuite supposée : révoquer la valeur chez le fournisseur, la remplacer, invalider les sessions en changeant `AUTH_SECRET`, et noter l'heure. Ne pas coller la valeur dans un ticket, un journal ou une conversation.

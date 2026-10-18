@@ -3,7 +3,8 @@ export type ConfigState = "configured" | "not_configured" | "development" | "unh
 export type EnvClass = "REQUIRED" | "OPTIONAL" | "DEVELOPMENT_ONLY" | "PRODUCTION_ONLY";
 
 export const ENV_CATALOG: Array<{ name: string; class: EnvClass; purpose: string }> = [
-  { name: "DATABASE_URL", class: "REQUIRED", purpose: "PostgreSQL" },
+  { name: "DATABASE_URL", class: "REQUIRED", purpose: "PostgreSQL du runtime. Sur Neon et Vercel : l'hôte poolé, avec sslmode=require et pgbouncer=true." },
+  { name: "DIRECT_URL", class: "REQUIRED", purpose: "PostgreSQL direct pour Prisma Migrate. Sur Neon : l'hôte sans pooler. En local non poolé : la même valeur que DATABASE_URL." },
   { name: "AUTH_SECRET", class: "REQUIRED", purpose: "Signature des sessions" },
   { name: "AUTH_URL", class: "REQUIRED", purpose: "URL publique attendue par Auth.js" },
   { name: "APP_URL", class: "OPTIONAL", purpose: "Origine publique prioritaire pour les liens email, OAuth et facturation" },

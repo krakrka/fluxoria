@@ -44,7 +44,7 @@ function ensureIsolatedDatabase() {
 function migrateIsolatedDatabase(url: string) {
   try {
     execFileSync("npx prisma migrate deploy", {
-      env: { ...process.env, DATABASE_URL: url },
+      env: { ...process.env, DATABASE_URL: url, DIRECT_URL: url },
       encoding: "utf8",
       stdio: "pipe",
       shell: true,

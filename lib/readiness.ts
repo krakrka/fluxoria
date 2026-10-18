@@ -13,7 +13,7 @@ export function productionReadiness(): ReadinessItem[] {
   const local = origin.includes("localhost") || origin.includes("127.0.0.1");
   return [
     { id: "env", label: "Variables d'environnement", ok: Boolean(process.env.DATABASE_URL && process.env.AUTH_SECRET && process.env.AUTH_URL), detail: "DATABASE_URL, AUTH_SECRET et AUTH_URL sont requis. Aucune valeur n'est affichée." },
-    { id: "database", label: "Base de données", ok: Boolean(process.env.DATABASE_URL), detail: "PostgreSQL. Production : prisma migrate deploy. Ne pas utiliser prisma db push." },
+    { id: "database", label: "Base de données", ok: Boolean(process.env.DATABASE_URL && process.env.DIRECT_URL), detail: "PostgreSQL. Runtime : DATABASE_URL. Migrations Neon : DIRECT_URL, puis npm run db:deploy. Ne pas utiliser prisma db push." },
     { id: "migrations", label: "Migrations", ok: true, detail: "development → prisma migrate dev. staging et production → prisma migrate deploy." },
     { id: "backups", label: "Sauvegardes", ok: services.backups === "configured", detail: "BACKUP_CONFIGURED=true après un essai de restauration. Voir docs/production-backups.md." },
     {
