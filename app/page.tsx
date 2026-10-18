@@ -1,103 +1,94 @@
-import Image from "next/image";
+import Link from "next/link";
+import { SiteFrame } from "@/components/site-frame";
+import { DEMO_PATH } from "@/lib/demo-story";
+import { planCatalog } from "@/lib/plans";
 
-export default function Home() {
+const promises = [
+  ["Moins de saisie", "Les champs d'une facture sont proposés. L'équipe corrige ce qui est faible, elle ne retape pas toute la pièce."],
+  ["Moins d'erreurs", "Un écart de montant, de fournisseur ou de bon de commande reste visible au lieu de passer dans un tableur."],
+  ["Factures traitées", "Chaque facture avance : extraction, rapprochement, règle, puis validation ou approbation."],
+  ["Anomalies", "Le doublon, le bon manquant et l'écart de prix deviennent une file à traiter, pas une surprise en fin de mois."],
+  ["Approbation", "Le montant décide du circuit : validation seule, manager, ou propriétaire. La règle est expliquée."],
+  ["Traçabilité", "Chaque correction et chaque décision garde l'auteur, l'ancienne valeur et la nouvelle."],
+];
+
+export default function HomePage() {
+  const plans = planCatalog();
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <SiteFrame>
+      <section className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Pour les PME</p>
+          <h1 className="mt-4 max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight">
+            L&apos;automatisation administrative intelligente des PME.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
+            Fluxora fait avancer les factures, les bons de commande et les validations. Le contrôle humain reste là où la pièce n&apos;est pas sûre.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/register" className="inline-flex h-11 items-center rounded-lg bg-accent px-5 text-sm font-medium text-accent-foreground">Commencer</Link>
+            <Link href="/demo" className="inline-flex h-11 items-center rounded-lg border border-line bg-card px-5 text-sm">Demander une démo</Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="rounded-3xl border border-line bg-card p-6">
+          <p className="text-xs uppercase tracking-[0.16em] text-muted">Parcours de démonstration</p>
+          <ol className="mt-4 space-y-2 text-sm">
+            {DEMO_PATH.map((step, index) => (
+              <li key={step.id} className="flex gap-3">
+                <span className="text-muted">{index + 1}</span>
+                {step.title}
+              </li>
+            ))}
+          </ol>
+          <Link href="/demo" className="mt-4 inline-block text-sm underline">Voir le parcours en quelques minutes</Link>
+        </div>
+      </section>
+
+      <section className="border-y border-line bg-card">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-3">
+          {promises.map(([title, body]) => (
+            <article key={title}>
+              <h2 className="text-lg font-semibold">{title}</h2>
+              <p className="mt-2 text-sm leading-6 text-muted">{body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="tarifs" className="mx-auto max-w-6xl px-6 py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-semibold tracking-tight">Trois plans</h2>
+            <p className="mt-3 max-w-2xl text-sm text-muted">Les prix viennent de la configuration. Le paiement n&apos;est confirmé que par Stripe.</p>
+          </div>
+          <Link href="/pricing" className="text-sm underline">Voir les limites</Link>
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {(Object.keys(plans) as Array<keyof typeof plans>).map((key) => {
+            const plan = plans[key];
+            return (
+              <article key={key} className="rounded-2xl border border-line bg-card p-6">
+                <h3 className="text-lg font-semibold">{plan.label}</h3>
+                <p className="mt-2 text-2xl font-semibold">{plan.price}</p>
+                <p className="mt-3 text-sm text-muted">{plan.documentsPerMonth} documents / mois · {plan.users} utilisateurs</p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="rounded-3xl bg-foreground px-8 py-12 text-background">
+          <h2 className="max-w-xl text-3xl font-semibold tracking-tight">Le premier flux tient en quelques minutes.</h2>
+          <p className="mt-3 max-w-lg text-sm leading-6 text-background/75">
+            Atlas Industrie sert de démonstration : une facture, un bon, une anomalie, une validation automatique et une approbation.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/register" className="inline-flex h-11 items-center rounded-lg bg-card px-5 text-sm font-medium text-foreground">Commencer</Link>
+            <Link href="/demo" className="inline-flex h-11 items-center rounded-lg border border-background/30 px-5 text-sm">Demander une démo</Link>
+          </div>
+        </div>
+      </section>
+    </SiteFrame>
   );
 }

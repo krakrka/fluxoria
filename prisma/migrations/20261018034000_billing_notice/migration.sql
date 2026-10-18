@@ -1,0 +1,2 @@
+ALTER TABLE "BillingEvent" ADD COLUMN "noticeDue" BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE "BillingEvent" ADD COLUMN "noticeSentAt" TIMESTAMP(3);

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fluxora-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fluxora
+      POSTGRES_PASSWORD: fluxora
+      POSTGRES_DB: fluxora
+    ports:
+      - "5432:5432"
+    volumes:
+      - fluxora_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fluxora -d fluxora"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  fluxora_pg:
